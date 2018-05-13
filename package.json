@@ -4,11 +4,12 @@
   "description": "sample movie list app",
   "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
     "dev": "webpack-dev-server --mode development --open",
     "build": "webpack --mode production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/clfhhc/sampleMovieList.git"
   },
   "keywords": [
     "movie",
