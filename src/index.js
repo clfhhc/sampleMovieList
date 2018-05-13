@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom';
 
 import App from './js/components/App.jsx';
 
-window.movies = [
+let movies = [
     {title: 'Mean Girls'},
     {title: 'Hackers'},
     {title: 'The Grey'},
@@ -13,4 +13,4 @@ window.movies = [
     {title: 'Ex Machina'},
   ];
 
-ReactDOM.render(<App movies={window.movies} />, document.getElementById('app'));
+ReactDOM.render(<App movies={movies} />, document.getElementById('app'));
