@@ -1,17 +1,18 @@
 // src/js/components/App.jsx
 
-import React, {Component} from 'react';
-import ReactDOM from 'react-dom';
-
+import React from 'react';
 import List from './List.jsx';
 
-let App = (props) => (
+const App = () => (
     <div>
         <nav>
             <h1>MovieList</h1>
         </nav>
+        {/* <div>
+            <Search />
+        </div> */}
         <div>
-            <List movies={props.movies} />
+            <List />
         </div>
     </div>
 );

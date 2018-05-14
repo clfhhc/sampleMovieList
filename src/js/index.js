@@ -1,17 +1,15 @@
 // src/js/index.js
 
 
-import React, {Component} from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
-
+import {Provider} from 'react-redux';
 import App from './components/App.jsx';
+import store from './store/index';
 
-let movies = [
-    {title: 'Mean Girls'},
-    {title: 'Hackers'},
-    {title: 'The Grey'},
-    {title: 'Sunshine'},
-    {title: 'Ex Machina'},
-  ];
-
-ReactDOM.render(<App movies={movies} />, document.getElementById('app'));
+ReactDOM.render((
+  <Provider store={store}>
+    <App />
+  </Provider>), 
+  document.getElementById('app')
+);

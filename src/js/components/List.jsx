@@ -1,17 +1,23 @@
 // src/js/components/List.jsx
 
-import React, {Component} from 'react';
-
+import React from 'react';
+import {connect} from 'react-redux';
 import ListEntry from './ListEntry.jsx';
 
-let List = (props) => (
+const mapStateToProps = (state) => ({
+    filteredMovies: state.filteredMovies
+});
+
+const List = ({filteredMovies}) => (
     <div>
         <ul>
-            {(props.movies && props.movies.length) ? props.movies.map((movie,index) => (
-                <ListEntry key={index} movie={movie} />)) 
+            {(filteredMovies && filteredMovies.length) ? filteredMovies.map((movie,index) => (
+                <ListEntry key={movie.title} movie={movie} />)) 
             : <li>No movie matches the keyword.</li>}
         </ul>
     </div>
 );
 
-export default List;
+const connectedList = connect(mapStateToProps)(List);
+
+export default connectedList;
