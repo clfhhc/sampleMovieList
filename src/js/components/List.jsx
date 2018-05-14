@@ -9,7 +9,7 @@ let List = (props) => (
         <ul>
             {(props.movies && props.movies.length) ? props.movies.map((movie,index) => (
                 <ListEntry key={index} movie={movie} />)) 
-            : <li>Add movie</li>}
+            : <li>No movie matches the keyword.</li>}
         </ul>
     </div>
 );
