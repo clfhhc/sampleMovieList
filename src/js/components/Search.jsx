@@ -8,7 +8,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     purpose: ownProps.purpose,
     buttonText: ownProps.buttonText,
     addMovie: (movie) => dispatch(addMovie(movie)),
-    filterMovies: (criterion, value) => dispatch(filterMovies(criterion, value))
+    filterMovies: (filterCallback) => dispatch(filterMovies(filterCallback))
 });
 
 class Search extends React.Component {
@@ -22,37 +22,52 @@ class Search extends React.Component {
 
     }
 
-    handleClick(inputString){
+    performBasedOnPurpose(inputString){
         if (this.props.purpose === 'filter') {
-            this.props.filterMovies('title',inputString);
+            let regExp = new RegExp('^'+inputString,'i')
+            const filterCallback = (movie) => regExp.test(movie.title);
+            this.props.filterMovies(filterCallback);
         } else if (this.props.purpose === 'add') {
             this.props.addMovie({title: inputString});
         }
-        this.setState({inputString: ''});
     }
 
-    handleChange(inputString) {
+    handleClick(event){
+        event.preventDefault();
+        this.performBasedOnPurpose(this.state.inputString);
+    }
+
+    handleChange(event) {
         this.setState({
-            inputString: inputString
+            inputString: event.target.value
         });
-        console.log(inputString)
         if (this.props.purpose === 'filter') {
             (this.state.timeoutID) && (clearTimeout(this.state.timeoutID));
             this.setState({
-                timeoutID: setTimeout(this.handleClick.bind(this,inputString), 2000)
+                timeoutID: setTimeout(this.performBasedOnPurpose.bind(this,event.target.value), 100)
             });
+        }
+    }
+
+    handleKeyPress(event) {
+        if (event.which === 13) {
+            this.performBasedOnPurpose(this.state.inputString);
+            if (this.props.purpose === 'filter') {
+                (this.state.timeoutID) && (clearTimeout(this.state.timeoutID));
+            }
         }
     }
 
     render(){
         return (
             <fieldset>
-                <input name="movieTitle" type="text" placeholder="Search..." value={this.state.inputString} onChange={(event) => this.handleChange.call(this,event.target.value)} />
-                <button className={`${this.props.purpose} btn`} 
-                onClick={(event) => {
-                    event.preventDefault();
-                    this.handleClick.call(this, this.state.inputString);
-                }} >
+                <input name="movieTitle" 
+                type="text" 
+                placeholder="Search..." 
+                value={this.state.inputString} 
+                onChange={this.handleChange.bind(this)} 
+                onKeyPress={this.handleKeyPress.bind(this)}/>
+                <button className={`${this.props.purpose} btn`} onClick={this.handleClick.bind(this)} >
                     {this.props.buttonText}
                 </button>
             </fieldset>
