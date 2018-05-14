@@ -1,6 +1,6 @@
 // src/js/reducers/index.js
 
-import {ADD_MOVIE,FILTER_MOVIES} from '../constants/actionTypes';
+import {ADD_MOVIE, FILTER_MOVIES} from '../constants/actionTypes';
 
 const movies = [
     {title: 'Mean Girls'},

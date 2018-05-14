@@ -2,7 +2,7 @@
 
 import React, {Component} from 'react';
 
-let ListEntry = (props) => (
+const ListEntry = (props) => (
     <li className="movie-list-entry">
         <span>
             {props.movie.title}

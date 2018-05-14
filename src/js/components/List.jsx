@@ -18,6 +18,6 @@ const List = ({filteredMovies}) => (
     </div>
 );
 
-const connectedList = connect(mapStateToProps)(List);
+const ConnectedList = connect(mapStateToProps)(List);
 
-export default connectedList;
+export default ConnectedList;
