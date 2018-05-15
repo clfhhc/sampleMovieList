@@ -2,14 +2,7 @@
 
 import {ADD_MOVIE, FILTER_MOVIES} from '../constants/actionTypes';
 
-const movies = [
-    {title: 'Mean Girls'},
-    {title: 'Hackers'},
-    {title: 'The Grey'},
-    {title: 'Sunshine'},
-    {title: 'Ex Machina'},
-];
-
+const movies = [];
 
 const initialState = {
     movies: movies,
