@@ -40,6 +40,10 @@ class Search extends React.Component {
         }
         if (event.target.name === 'add-button') {
             this.addMovieOnString();
+            event.preventDefault()
+            this.setState({
+                addString: ''
+            })
         }
     }
 
