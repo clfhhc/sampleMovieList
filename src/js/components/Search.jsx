@@ -47,7 +47,7 @@ class Search extends React.Component {
         if (event.target.name === 'filter-title') {
             this.setState({
                 filterString: event.target.value,
-                timeoutID: setTimeout(this.filterMoviesOnString.bind(this), 10000)
+                timeoutID: setTimeout(this.filterMoviesOnString.bind(this), 150)
             });
         }
         if (event.target.name === 'add-title') {
@@ -62,8 +62,12 @@ class Search extends React.Component {
             if (event.target.name === 'filter-title') {
                 this.filterMoviesOnString();
             }
-            if (event.target.name === 'add-button') {
+            if (event.target.name === 'add-title') {
                 this.addMovieOnString();
+                event.preventDefault()
+                this.setState({
+                    addString: ''
+                })
             }
         }
     }

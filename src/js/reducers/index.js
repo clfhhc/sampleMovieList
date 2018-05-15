@@ -12,7 +12,11 @@ const initialState = {
 const rootReducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_MOVIE:
-            return {...state, movies: state.movies.includes(action.payload) ? [...state.movies] : [...state.movies, action.payload]};
+            if (state.movies.every((movie) => (action.payload.title && movie.title !== action.payload.title))) {
+                return {...state, movies: [...state.movies, action.payload]};
+            } else {
+                return state;
+            }
         case FILTER_MOVIES:
             return {...state, filteredMovies: state.movies.filter(action.payload)};
         default:
