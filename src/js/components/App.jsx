@@ -11,7 +11,7 @@ const App = () => (
             <h1>MovieList</h1>
         </nav>
         <div>
-            <Search className="filter-form" purpose="filter" buttonText="Go"/>
+            <Search />
         </div>
         <div>
             <List />

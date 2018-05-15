@@ -4,9 +4,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {addMovie, filterMovies} from '../actions/index';
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
-    purpose: ownProps.purpose,
-    buttonText: ownProps.buttonText,
+const mapDispatchToProps = (dispatch) => ({
     addMovie: (movie) => dispatch(addMovie(movie)),
     filterMovies: (filterCallback) => dispatch(filterMovies(filterCallback))
 });
@@ -16,66 +14,91 @@ class Search extends React.Component {
         super(props);
 
         this.state = {
-            inputString: '',
+            filterString:'',
+            addString: '',
             timeoutID: null
         };
 
     }
 
-    performBasedOnPurpose(inputString){
-        if (this.props.purpose === 'filter') {
-            let regExp = new RegExp(inputString,'i')
-            const filterCallback = (movie) => regExp.test(movie.title);
-            this.props.filterMovies(filterCallback);
-        } else if (this.props.purpose === 'add') {
-            this.props.addMovie({title: inputString});
-        }
+    filterMoviesOnString(){
+        let regExp = new RegExp(this.state.filterString,'i')
+        const filterCallback = (movie) => regExp.test(movie.title);
+        this.props.filterMovies(filterCallback);
+        (this.state.timeoutID) && (clearTimeout(this.state.timeoutID));
+    }
+
+    addMovieOnString(){
+        this.props.addMovie({title: this.state.addString});
+        this.filterMoviesOnString(this.state.filterString);
     }
 
     handleClick(event){
         event.preventDefault();
-        this.performBasedOnPurpose(this.state.inputString);
+        if (event.target.name === 'filter-button') {
+            this.filterMoviesOnString();
+        }
+        if (event.target.name === 'add-button') {
+            this.addMovieOnString();
+        }
     }
 
     handleChange(event) {
-        this.setState({
-            inputString: event.target.value
-        });
-        if (this.props.purpose === 'filter') {
-            (this.state.timeoutID) && (clearTimeout(this.state.timeoutID));
+        if (event.target.name === 'filter-title') {
             this.setState({
-                timeoutID: setTimeout(this.performBasedOnPurpose.bind(this,event.target.value), 100)
+                filterString: event.target.value,
+                timeoutID: setTimeout(this.filterMoviesOnString.bind(this), 10000)
+            });
+        }
+        if (event.target.name === 'add-title') {
+            this.setState({
+                addString: event.target.value,
             });
         }
     }
 
     handleKeyPress(event) {
         if (event.which === 13) {
-            this.performBasedOnPurpose(this.state.inputString);
-            if (this.props.purpose === 'filter') {
-                (this.state.timeoutID) && (clearTimeout(this.state.timeoutID));
+            if (event.target.name === 'filter-title') {
+                this.filterMoviesOnString();
+            }
+            if (event.target.name === 'add-button') {
+                this.addMovieOnString();
             }
         }
     }
 
     render(){
         return (
-            <form>
-                <input name="movieTitle" 
-                type="text" 
-                placeholder="Search..." 
-                value={this.state.inputString} 
-                onChange={this.handleChange.bind(this)} 
-                onKeyPress={this.handleKeyPress.bind(this)}/>
-                <button className={`${this.props.purpose} btn`} onClick={this.handleClick.bind(this)} >
-                    {this.props.buttonText}
-                </button>
+            <form className="search">
+                <fieldset>
+                    <input name="add-title" 
+                    type="text" 
+                    placeholder="Add movie title here..." 
+                    value={this.state.addString} 
+                    onChange={this.handleChange.bind(this)} 
+                    onKeyPress={this.handleKeyPress.bind(this)}/>
+                    <button className="add btn" name="add-button" onClick={this.handleClick.bind(this)} >
+                        Add
+                    </button>
+                </fieldset>
+                <fieldset>
+                    <input name="filter-title" 
+                    type="text" 
+                    placeholder="Search..." 
+                    value={this.state.filterString} 
+                    onChange={this.handleChange.bind(this)} 
+                    onKeyPress={this.handleKeyPress.bind(this)}/>
+                    <button className="filter btn" name="filter-button" onClick={this.handleClick.bind(this)} >
+                        Go
+                    </button>
+                </fieldset>
             </form>
         );
     }
 };
 
-const ConnectedSearch = connect(null,mapDispatchToProps)(Search)
+const ConnectedSearch = connect(null, mapDispatchToProps)(Search)
 
 
 export default ConnectedSearch;
