@@ -1,6 +1,6 @@
 // src/js/components/List.jsx
 
-import React, {Component} from 'react';
+import React from 'react';
 import {connect} from 'react-redux';
 import {addMovie, filterMovies} from '../actions/index';
 
@@ -14,96 +14,121 @@ class Search extends React.Component {
         super(props);
 
         this.state = {
-            filterString:'',
-            addString: '',
-            Page: 'watched',
-            timeoutID: null
+            filterTitle:'',
+            addTitle: '',
+            watchedPage: false,
         };
 
+        this.handleChange = this.handleChange.bind(this);
+        this.handleClick = this.handleClick.bind(this);
+        this.handleKeyPress = this.handleKeyPress.bind(this);
     }
 
-    filterMoviesOnString(){
-        let regExp = new RegExp(this.state.filterString,'i')
-        const filterCallback = (movie) => regExp.test(movie.title);
+
+    filterMoviesOnKeys(title, watchedPage){
+        let regExp = new RegExp(title, 'i');
+        const filterCallback = (movie) => {
+            console.log(this.state.watchedPage);
+            return (regExp.test(movie.title) && (movie.watched === watchedPage))};
         this.props.filterMovies(filterCallback);
-        (this.state.timeoutID) && (clearTimeout(this.state.timeoutID));
     }
 
-    addMovieOnString(){
+    addMovieOnString(title){
         this.props.addMovie({
-            title: this.state.addString,
+            title: title,
             watched: false
         });
-        this.filterMoviesOnString(this.state.filterString);
+        
     }
 
     handleClick(event){
         event.preventDefault();
-        if (event.target.name === 'filter-button') {
-            this.filterMoviesOnString();
+        if (event.target.id === 'filter-button') {
+            this.filterMoviesOnKeys(this.state.filterTitle, this.state.watchedPage);
         }
-        if (event.target.name === 'add-button') {
-            this.addMovieOnString();
-            event.preventDefault()
-            this.setState({
-                addString: ''
+        if (event.target.id === 'add-button') {
+            this.setState((prevState) => {
+                this.addMovieOnString(prevState.addTitle);
+                this.filterMoviesOnKeys(prevState.filterTitle, prevState.watchedPage);
+                return {...prevState, addTitle: ''};
+            })
+        }
+        if (event.target.id === 'watched-button') {
+            this.setState((prevState) => {
+                this.filterMoviesOnKeys(prevState.filterTitle, true);
+                return {...prevState, watchedPage: true};
+            })
+        }
+        if (event.target.id === 'to-watch-button') {
+            this.setState((prevState) => {
+                this.filterMoviesOnKeys(prevState.filterTitle, false);
+                return {...prevState, watchedPage: false};
             })
         }
     }
 
     handleChange(event) {
+        const updateString = event.target.value;
         if (event.target.name === 'filter-title') {
-            this.setState({
-                filterString: event.target.value,
-                timeoutID: setTimeout(this.filterMoviesOnString.bind(this), 150)
-            });
+            this.setState((prevState) => ({
+                ...prevState, filterTitle: updateString
+            }));
         }
         if (event.target.name === 'add-title') {
-            this.setState({
-                addString: event.target.value,
-            });
+            this.setState((prevState) => ({
+                ...prevState, addTitle: updateString
+            }));
         }
+        event.preventDefault();
     }
 
     handleKeyPress(event) {
         if (event.which === 13) {
             if (event.target.name === 'filter-title') {
-                this.filterMoviesOnString();
+                this.filterMoviesOnKeys(this.state.filterTitle, this.watchedPage);
+                console.log(3);
             }
             if (event.target.name === 'add-title') {
-                this.addMovieOnString();
-                event.preventDefault()
-                this.setState({
-                    addString: ''
+                this.setState((prevState) => {
+                    this.addMovieOnString(prevState.addTitle);
+                    this.filterMoviesOnKeys(prevState.filterTitle, prevState.watchedPage);
+                    console.log(3);
+                    return {...prevState, addTitle: ''};
                 })
             }
+            event.preventDefault();
         }
     }
 
     render(){
+        console.log(2);
         return (
             <form className="search">
                 <fieldset>
                     <input name="add-title" 
                     type="text" 
                     placeholder="Add movie title here..." 
-                    value={this.state.addString} 
-                    onChange={this.handleChange.bind(this)} 
-                    onKeyPress={this.handleKeyPress.bind(this)}/>
-                    <button className="add btn" name="add-button" onClick={this.handleClick.bind(this)} >
+                    value={this.state.addTitle} 
+                    onChange={this.handleChange} 
+                    onKeyPress={this.handleKeyPress}/>
+                    <button className="add btn" id="add-button" onClick={this.handleClick} >
                         Add
                     </button>
                 </fieldset>
                 <fieldset className="filter-form">
-                    <button>Watched</button>
-                    <button>To Watch</button>
+                    <button id="watched-button"
+                    onClick={this.handleClick}
+                    >Watched</button>
+                    <button id="to-watch-button"
+                    onClick={this.handleClick}
+                    >To Watch</button>
                     <input name="filter-title" 
                     type="text" 
                     placeholder="Search..." 
-                    value={this.state.filterString} 
-                    onChange={this.handleChange.bind(this)} 
-                    onKeyPress={this.handleKeyPress.bind(this)}/>
-                    <button className="filter btn" name="filter-button" onClick={this.handleClick.bind(this)} >
+                    value={this.state.filterTitle} 
+                    onChange={this.handleChange} 
+                    onKeyPress={this.handleKeyPress}/>
+                    <button className="filter btn" id="filter-button" onClick={this.handleClick} >
                         Go
                     </button>
                 </fieldset>

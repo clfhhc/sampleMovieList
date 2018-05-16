@@ -1,6 +1,6 @@
 // src/js/components/ListEntry.jsx
 
-import React, {Component} from 'react';
+import React from 'react';
 
 const ListEntry = (props) => (
     <li className="movie-list-entry">
