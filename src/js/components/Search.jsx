@@ -28,7 +28,6 @@ class Search extends React.Component {
     filterMoviesOnKeys(title, watchedPage){
         let regExp = new RegExp(title, 'i');
         const filterCallback = (movie) => {
-            console.log(this.state.watchedPage);
             return (regExp.test(movie.title) && (movie.watched === watchedPage))};
         this.props.filterMovies(filterCallback);
     }
@@ -38,7 +37,6 @@ class Search extends React.Component {
             title: title,
             watched: false
         });
-        
     }
 
     handleClick(event){
@@ -86,13 +84,11 @@ class Search extends React.Component {
         if (event.which === 13) {
             if (event.target.name === 'filter-title') {
                 this.filterMoviesOnKeys(this.state.filterTitle, this.watchedPage);
-                console.log(3);
             }
             if (event.target.name === 'add-title') {
                 this.setState((prevState) => {
                     this.addMovieOnString(prevState.addTitle);
                     this.filterMoviesOnKeys(prevState.filterTitle, prevState.watchedPage);
-                    console.log(3);
                     return {...prevState, addTitle: ''};
                 })
             }
@@ -101,7 +97,6 @@ class Search extends React.Component {
     }
 
     render(){
-        console.log(2);
         return (
             <form className="search">
                 <fieldset>
@@ -111,6 +106,7 @@ class Search extends React.Component {
                     value={this.state.addTitle} 
                     onChange={this.handleChange} 
                     onKeyPress={this.handleKeyPress}/>
+                    
                     <button className="add btn" id="add-button" onClick={this.handleClick} >
                         Add
                     </button>
@@ -119,15 +115,18 @@ class Search extends React.Component {
                     <button id="watched-button"
                     onClick={this.handleClick}
                     >Watched</button>
+                    
                     <button id="to-watch-button"
                     onClick={this.handleClick}
                     >To Watch</button>
+                    
                     <input name="filter-title" 
                     type="text" 
                     placeholder="Search..." 
                     value={this.state.filterTitle} 
                     onChange={this.handleChange} 
                     onKeyPress={this.handleKeyPress}/>
+                    
                     <button className="filter btn" id="filter-button" onClick={this.handleClick} >
                         Go
                     </button>
