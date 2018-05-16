@@ -16,6 +16,7 @@ class Search extends React.Component {
         this.state = {
             filterString:'',
             addString: '',
+            Page: 'watched',
             timeoutID: null
         };
 
@@ -29,7 +30,10 @@ class Search extends React.Component {
     }
 
     addMovieOnString(){
-        this.props.addMovie({title: this.state.addString});
+        this.props.addMovie({
+            title: this.state.addString,
+            watched: false
+        });
         this.filterMoviesOnString(this.state.filterString);
     }
 
@@ -90,7 +94,9 @@ class Search extends React.Component {
                         Add
                     </button>
                 </fieldset>
-                <fieldset>
+                <fieldset className="filter-form">
+                    <button>Watched</button>
+                    <button>To Watch</button>
                     <input name="filter-title" 
                     type="text" 
                     placeholder="Search..." 

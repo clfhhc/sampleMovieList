@@ -1,7 +1,6 @@
 nav {
     background-color: #d3d3d357;
     height: 50px;
-    
 }
 
 h1 {
@@ -12,11 +11,52 @@ h1 {
     padding-top: 12px
 }
 
+.search span{
+    float: left;
+    border: 1px solid lightgrey;
+    font-size: 20px;
+    height: 25px;
+    width: 100px;
+}
+
+.search input {
+    float: left;
+    height: 20px;
+    font-size: 20px;
+}
+
+.search button {
+    float:left;
+    font-size: 20px;
+    height: 25px;
+    border-style: solid lightgrey;
+}
+
+
+form.search {
+    margin: 0;
+    padding-left: 40px;
+    padding-right: 40px;
+    display: block;
+}
+
+fieldset {
+    border: none;
+    height: 25px;
+    padding-bottom: 0;
+    padding: 0;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
 ul {
+    max-width: 400px;
     list-style-type: none;
     padding-right: 40px;
     padding-left: 40px;
 }
+
+
 
 .movie-list-entry {
     margin-left: auto;
@@ -28,4 +68,11 @@ ul {
 .movie-list-entry span {
     font-family: Helvetica, sans-serif;
     margin-left: 20px;
+}
+
+.movie-list-entry button {
+    float: right;
+    border-style: 1px solid lightgrey;
+    height: 25px;
+    font-size: 20px;
 }

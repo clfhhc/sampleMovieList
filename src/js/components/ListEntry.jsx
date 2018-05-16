@@ -7,6 +7,7 @@ const ListEntry = (props) => (
         <span>
             {props.movie.title}
         </span>
+        <button>Watched</button>
     </li>
 );
 
