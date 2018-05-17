@@ -83,7 +83,7 @@ class Search extends React.Component {
     handleKeyPress(event) {
         if (event.which === 13) {
             if (event.target.name === 'filter-title') {
-                this.filterMoviesOnKeys(this.state.filterTitle, this.watchedPage);
+                this.filterMoviesOnKeys(this.state.filterTitle, this.state.watchedPage);
             }
             if (event.target.name === 'add-title') {
                 this.setState((prevState) => {
@@ -136,7 +136,7 @@ class Search extends React.Component {
     }
 };
 
-const ConnectedSearch = connect(null, mapDispatchToProps)(Search)
+const ConnectedSearch = connect(null, mapDispatchToProps)(Search);
 
 
 export default ConnectedSearch;
