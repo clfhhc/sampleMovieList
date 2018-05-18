@@ -12,7 +12,6 @@ h1 {
 }
 
 .search span{
-    float: left;
     border: 1px solid lightgrey;
     font-size: 20px;
     height: 25px;
@@ -20,13 +19,11 @@ h1 {
 }
 
 .search input {
-    float: left;
     height: 20px;
     font-size: 20px;
 }
 
 .search button {
-    float:left;
     font-size: 20px;
     height: 25px;
     border: 1px solid grey;

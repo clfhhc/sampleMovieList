@@ -112,16 +112,6 @@ class Search extends React.Component {
                     </button>
                 </fieldset>
                 <fieldset className="filter-form">
-                    <button className={this.state.watchedPage ? "pressed" : ""}
-                    id="watched-button"
-                    onClick={this.handleClick}
-                    >Watched</button>
-                    
-                    <button className={this.state.watchedPage ? "" : "pressed"}
-                    id="to-watch-button"
-                    onClick={this.handleClick}
-                    >To Watch</button>
-                    
                     <input name="filter-title" 
                     type="text" 
                     placeholder="Search..." 
@@ -132,6 +122,18 @@ class Search extends React.Component {
                     <button className="filter btn" id="filter-button" onClick={this.handleClick} >
                         Go
                     </button>
+                </fieldset>
+
+                <fieldset>
+                    <button className={this.state.watchedPage ? "pressed" : ""}
+                    id="watched-button"
+                    onClick={this.handleClick}
+                    >Watched</button>
+                    
+                    <button className={this.state.watchedPage ? "" : "pressed"}
+                    id="to-watch-button"
+                    onClick={this.handleClick}
+                    >To Watch</button>
                 </fieldset>
             </form>
         );
