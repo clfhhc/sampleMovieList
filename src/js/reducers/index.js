@@ -3,16 +3,38 @@
 import {ADD_MOVIE, FILTER_MOVIES, TOGGLE_WATCHED} from '../constants/actionTypes';
 
 const movies = [];
+const descriptions = {
+    'Matrix': {
+        Year: 1995,
+        Runtime: '107 min',
+        Metascore: 46,
+        imdbRating: 6.2
+    },
+    'Harry Porter': {
+        Year: 2000,
+        Runtime: '108 min',
+        Metascore: 63,
+        imdbRating: 5.9,
+    },
+    'Identity': {
+        Year: 2001,
+        Runtime: '130 min',
+        Metascore: 75,
+        imdbRating: 4.7,
+    }
+};
 
 const initialState = {
     movies: movies,
-    filteredMovies: movies
+    filteredMovies: movies,
+    descriptions: descriptions,
+    filteredDescriptions: []
 };
 
 const rootReducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_MOVIE:
-            if (state.movies.every((movie) => (action.payload.title && movie.title !== action.payload.title))) {
+            if ((action.payload.title) && state.movies.every((movie) => (movie.title !== action.payload.title))) {
                 return {...state, movies: [...state.movies, action.payload]};
             } else {
                 return state;
