@@ -29,7 +29,12 @@ h1 {
     float:left;
     font-size: 20px;
     height: 25px;
-    border-style: solid lightgrey;
+    border: 1px solid grey;
+    background-color: lightgrey;
+}
+
+.search button.pressed {
+    background-color: rgba(15, 177, 15, 0.897);
 }
 
 
@@ -72,7 +77,8 @@ ul {
 
 .movie-list-entry button {
     float: right;
-    border-style: 1px solid lightgrey;
+    border: 1px solid black;
+    background-color: rgba(15, 177, 15, 0.897);
     height: 25px;
     font-size: 20px;
 }
