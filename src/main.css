@@ -23,14 +23,14 @@ h1 {
     font-size: 20px;
 }
 
-.search button {
+button {
     font-size: 20px;
     height: 25px;
     border: 1px solid grey;
-    background-color: lightgrey;
+    background-color: transparent;
 }
 
-.search button.pressed {
+.pressed {
     background-color: rgba(15, 177, 15, 0.897);
 }
 
@@ -67,15 +67,20 @@ ul {
     border: 1px solid lightgrey;
 }
 
-.movie-list-entry span {
-    font-family: Helvetica, sans-serif;
-    margin-left: 20px;
+.movie-title {
+    font-size: 20px;
 }
 
-.movie-list-entry button {
+.movie-detail {
+    font-family: Helvetica, sans-serif;
+    margin-left: 10px;
+}
+
+
+/* .movie-list-entry button {
     float: right;
     border: 1px solid black;
     background-color: rgba(15, 177, 15, 0.897);
     height: 25px;
     font-size: 20px;
-}
+} */

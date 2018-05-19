@@ -36,13 +36,13 @@ class ListEntry extends React.Component {
     render() {
         return (
             <li className="movie-list-entry">
-                <div onClick={this.handleTitleClick}>
+                <div onClick={this.handleTitleClick} className={"movie-title" + (this.props.showDescription ? " pressed" : "")} >
                     <span>
                         {this.props.movie.title}
                     </span>
                 </div>
-                <div>
-                    {(this.props.movie && this.props.movie.description) && (this.props.description ? (
+                <div className="movie-detail">
+                    {(this.props.movie && this.props.showDescription) && (this.props.description ? (
                         <div>
                             <div>Year: {this.props.description.Year}</div>
                             <div>Runtime: {this.props.description.Runtime}</div>
@@ -54,7 +54,7 @@ class ListEntry extends React.Component {
                             Description to be retreived.
                         </div>
                     ))}
-                    {(this.props.movie && this.props.movie.description) && (
+                    {(this.props.movie && this.props.showDescription) && (
                         <div>
                             <label>Watched:</label> 
                             <input type="radio" 
