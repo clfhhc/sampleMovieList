@@ -4,19 +4,15 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {toggleWatched, toggleDescription} from '../actions/index';
 
-const mapStateToProps = (state, ownProps) =>{
-    console.log(ownProps.index, state.movies[ownProps.movieIndex].title)
-    return ({
+const mapStateToProps = (state, ownProps) =>({
     index: ownProps.index,
     movieIndex: ownProps.movieIndex,
     movie: state.movies[ownProps.movieIndex],
     showDescription: state.movies[ownProps.movieIndex].description,
     description: state.filteredDescriptions[ownProps.index]
-})}
+})
 
 const mapDispatchToProps = (dispatch) => ({
-    // movie: ownProps.movie,
-    // description: ownProps.description,
     toggleWatched: (movieIndex,index) => dispatch(toggleWatched(movieIndex,index)),
     toggleDescription: (movieIndex) => dispatch(toggleDescription(movieIndex))
 })

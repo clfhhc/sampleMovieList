@@ -31,11 +31,6 @@ const initialState = {
     filteredDescriptions: []
 };
 
-// const rootReducer = createReducer([],{
-//     [ADD_MOVIE]: (state = initialState, action) => {
-
-//     }
-// })
 
 const rootReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -64,26 +59,18 @@ const rootReducer = (state = initialState, action) => {
         }
 
         case TOGGLE_WATCHED: {
-            // let movieIndex = state.movies.findIndex((movie) => movie.title === action.payload.title);
             let newMovies = state.movies.slice();
             let newFilteredMovies = state.filteredMovies.slice();
             let newFilteredDescriptions = state.filteredDescriptions.slice();
             newMovies[action.payload[0]].watched = !state.movies[action.payload[0]].watched;
-            console.log(action.payload[0])
-            console.log(action.payload[1])
             newFilteredMovies.splice(action.payload[1], 1);
             newFilteredDescriptions.splice(action.payload[1], 1);
             return {...state, movies: newMovies, filteredMovies: newFilteredMovies, filteredDescriptions: newFilteredDescriptions};
         }
 
         case TOGGLE_DESCRIPTION: {
-            // let movieIndex = state.movies.findIndex((movie) => movie.title === action.payload.title);
-            // const filteredMovieIndex = state.filteredMovies.findIndex((movie) => movie.title === action.payload.title);
             let newMovies = state.movies.slice();
-            
-            // let newFilteredMovies = state.filteredMovies.slice();
             newMovies[action.payload].description = !state.movies[action.payload].description;
-            // newFilteredMovies[filteredMovieIndex].description = newFilteredMovies[filteredMovieIndex].description
             return {...state, movies: newMovies};
         }
             
