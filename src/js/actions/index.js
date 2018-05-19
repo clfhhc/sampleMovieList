@@ -4,5 +4,5 @@ import {ADD_MOVIE, FILTER_MOVIES, TOGGLE_WATCHED, TOGGLE_DESCRIPTION} from '../c
 
 export const addMovie = (movie) => ({type: ADD_MOVIE, payload: movie});
 export const filterMovies = (filterCallback) => ({type: FILTER_MOVIES, payload: filterCallback});
-export const toggleWatched = (index) => ({type: TOGGLE_WATCHED, payload: index});
-export const toggleDescription = (index) => ({type: TOGGLE_DESCRIPTION, payload: index});
+export const toggleWatched = (movieIndex, index) => ({type: TOGGLE_WATCHED, payload: [movieIndex, index]});
+export const toggleDescription = (movieIndex) => ({type: TOGGLE_DESCRIPTION, payload: movieIndex});

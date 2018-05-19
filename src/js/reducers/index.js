@@ -58,21 +58,22 @@ const rootReducer = (state = initialState, action) => {
             // })
             // const newFilteredMovies = state.movies.filter(action.payload);
             const newFilteredDescriptions = newFilteredMovies.map((index) => {
-                console.log(state.movies[index].description)
                 return state.descriptions[state.movies[index].title];
             });
-            console.log('newFilteredDescription :', newFilteredDescriptions)
             return {...state, filteredMovies: newFilteredMovies, filteredDescriptions: newFilteredDescriptions};
         }
 
         case TOGGLE_WATCHED: {
             // let movieIndex = state.movies.findIndex((movie) => movie.title === action.payload.title);
-            let filteredMovieIndex = state.filteredMovies.findIndex((index) => index === action.payload);
             let newMovies = state.movies.slice();
             let newFilteredMovies = state.filteredMovies.slice();
-            newMovies[action.payload].watched = !state.movies[action.payload].watched;
-            newFilteredMovies.splice(filteredMovieIndex, 1);
-            return {...state, movies: newMovies, filteredMovies: newFilteredMovies};
+            let newFilteredDescriptions = state.filteredDescriptions.slice();
+            newMovies[action.payload[0]].watched = !state.movies[action.payload[0]].watched;
+            console.log(action.payload[0])
+            console.log(action.payload[1])
+            newFilteredMovies.splice(action.payload[1], 1);
+            newFilteredDescriptions.splice(action.payload[1], 1);
+            return {...state, movies: newMovies, filteredMovies: newFilteredMovies, filteredDescriptions: newFilteredDescriptions};
         }
 
         case TOGGLE_DESCRIPTION: {

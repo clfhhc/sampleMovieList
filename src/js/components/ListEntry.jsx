@@ -5,9 +5,10 @@ import {connect} from 'react-redux';
 import {toggleWatched, toggleDescription} from '../actions/index';
 
 const mapStateToProps = (state, ownProps) =>{
-    console.log(ownProps.index);
+    console.log(ownProps.index, state.movies[ownProps.movieIndex].title)
     return ({
-    index: ownProps.movieIndex,
+    index: ownProps.index,
+    movieIndex: ownProps.movieIndex,
     movie: state.movies[ownProps.movieIndex],
     showDescription: state.movies[ownProps.movieIndex].description,
     description: state.filteredDescriptions[ownProps.index]
@@ -16,8 +17,8 @@ const mapStateToProps = (state, ownProps) =>{
 const mapDispatchToProps = (dispatch) => ({
     // movie: ownProps.movie,
     // description: ownProps.description,
-    toggleWatched: (movie) => dispatch(toggleWatched(movie)),
-    toggleDescription: (movie) => dispatch(toggleDescription(movie))
+    toggleWatched: (movieIndex,index) => dispatch(toggleWatched(movieIndex,index)),
+    toggleDescription: (movieIndex) => dispatch(toggleDescription(movieIndex))
 })
 
 class ListEntry extends React.Component {
@@ -29,15 +30,14 @@ class ListEntry extends React.Component {
     }
 
     handleButtonClick(event){
-        this.props.toggleWatched(this.props.index);
+        this.props.toggleWatched(this.props.movieIndex, this.props.index);
     }
 
     handleTitleClick(event){
-        this.props.toggleDescription(this.props.index);
+        this.props.toggleDescription(this.props.movieIndex);
     }
 
     render() {
-        console.log(this.props.description)
         return (
             <li className="movie-list-entry">
                 <div onClick={this.handleTitleClick}>
