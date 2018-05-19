@@ -5,14 +5,14 @@ import {connect} from 'react-redux';
 import ListEntry from './ListEntry.jsx';
 
 const mapStateToProps = (state) => ({
-    filteredMovies: state.filteredMovies
+    filteredMovies: state.filteredMovies,
 });
 
-const List = ({filteredMovies}) => (
+const List = (props) => (
     <div>
         <ul>
-            {(filteredMovies && filteredMovies.length) ? filteredMovies.map((movie,index) => (
-                <ListEntry key={movie.title} movie={movie} />)) 
+            {(props.filteredMovies && props.filteredMovies.length) ? props.filteredMovies.map((movieIndex,index) => (
+                <ListEntry key={index} index={index} movieIndex={movieIndex}/>)) 
             : <li>No movie matches the keyword.</li>}
         </ul>
     </div>

@@ -35,7 +35,8 @@ class Search extends React.Component {
     addMovieOnString(title){
         this.props.addMovie({
             title: title,
-            watched: false
+            watched: false,
+            description: false
         });
     }
 
