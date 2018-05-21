@@ -65,3 +65,6 @@ dist/
 
 ## Mac OSX ##
 .DS_Store
+
+## Config ##
+src/js/env/
