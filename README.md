@@ -106,6 +106,18 @@ module.exports = {
 };
 ~~~~
 
+(**Rules Template**
+~~~~
+{
+        test: /\.YOUR_FILE_EXTENSION$/,
+        exclude: /SOMETHING THAT IS THAT EXTENSION BUT SHOULD NOT BE PROCESSED/,
+        use: {
+          loader: "loader for your file extension  or a group of loaders"
+        }
+}
+~~~~
+)
+
 11. layout the folder and file structures:
 project:
     -> client:
