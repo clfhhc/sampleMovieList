@@ -9,6 +9,8 @@
 
 (Even though webpack starting v4 is config-less, but it's still easier to setup all four core elements by using a config file)
 
+## Steps to setup
+
 1. npm initiate project
 `npm init`
 
