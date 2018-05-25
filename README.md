@@ -58,6 +58,7 @@ dist/
 ~~~~
 
 (Might want to do step 10 & 11 at the same time)
+
 10. create **webpack.config.js** in the root directory
 ~~~~
 const path = require('path');
