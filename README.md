@@ -1,4 +1,5 @@
 # Webpack Setup
+(with babel, react, eslint(airbnb))
 
 ## Core concepts
 
@@ -45,9 +46,23 @@ dist/
 `npm install css-loader mini-css-extract-plugin --save-dev`
 
 8. install react related npm
-`npm install --save-dev react react-dom`
+`npm install --save react react-dom`
 
-9. create **.babelrc** in the root directory
+9. install eslint related npm
+run this command to see what eslint-config-airbnb's correct dependency versions are (latest one will have incompatiblity issue)
+`npm info "eslint-config-airbnb@latest" peerDependencies`
+Then copy and paste the dependency packages and their versions in your dev dependency in package.json:
+~~~~
+"eslint": "^4.9.0",
+"eslint-plugin-import": "^2.7.0",
+"eslint-plugin-jsx-a11y": "^6.0.2",
+"eslint-plugin-react": "^7.4.0",
+~~~~
+save and run npm install again to install the required dependencies
+`npm install`
+`npm install eslint eslint-loader babel-eslint --save-dev`
+
+10. create **.babelrc** in the root directory
 ~~~~
 {
     "presets": [
@@ -57,9 +72,29 @@ dist/
 }
 ~~~~
 
-(Might want to do step 10 & 11 at the same time)
+11. create **.eslintrc** in the root directory
+~~~~
+{
+  parser: "babel-eslint",
+  plugins: ["react", "import", "jsx-a11y"],
+  env: {
+    "browser": true,
+    "node": true,
+    "es6": true
+  },
+  rules: {
+    "react/prop-types": [2]
+  },
+  extends: ["airbnb"]
+};
+~~~~
+<br/>
+(using react environments, so inside 'rules', "prop-types" must be prefixed with "react/", prop-types [2] must be assigned.)
 
-10. create **webpack.config.js** in the root directory
+
+(Might want to do step 12 & 13 at the same time)
+
+12. create **webpack.config.js** in the root directory
 ~~~~
 const path = require('path');
 const HtmlWebPackPlugin = require("html-webpack-plugin");
@@ -67,6 +102,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
     entry: {main: './client/src/js/index.js'},
+    resolve: { extensions: ['.js', '.jsx'] },
     output: {
         path: path.resolve(__dirname, 'public'),
         filename: '[name].js'
@@ -79,6 +115,11 @@ module.exports = {
                 use: {
                     loader: "babel-loader"
                 }
+            },
+            {
+                test: /\.jsx?$/,
+                exclude: /node_modules/,
+                use: ['babel-loader', 'eslint-loader'],
             },
             {
                 test: /\.html$/,
@@ -119,7 +160,8 @@ module.exports = {
 ~~~~
 )
 
-11. layout the folder and file structures:
+13. layout the folder and file structures:
+~~~~
 project:
     -> client:
         -> src:
@@ -132,8 +174,9 @@ project:
             -> main.css
     -> public:
         -> the output transpiled files
+~~~~
 
-12. set up the template index html
+14. set up the template index html
 ~~~~
 <!DOCTYPE html>
 <html lang="en">
