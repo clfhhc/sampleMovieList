@@ -60,7 +60,7 @@ Then copy and paste the dependency packages and their versions in your dev depen
 ~~~~
 save and run npm install again to install the required dependencies
 `npm install`
-`npm install eslint eslint-loader babel-eslint --save-dev`
+`npm install eslint eslint-config-airbnb eslint-loader babel-eslint --save-dev`
 
 10. create **.babelrc** in the root directory
 ~~~~
