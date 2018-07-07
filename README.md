@@ -21,10 +21,10 @@
 .DS_store
 
 ##npm packages
-node_module/
+node_modules/
 
 ##webpack default output folder
-dist/
+public/
 ~~~~
 
 3. install webpack 4
@@ -165,7 +165,7 @@ module.exports = {
 project:
     -> client:
         -> src:
-            -> index.js
+            -> index.html
             -> components:
                 -> App.jsx
                 -> Component2.jsx
